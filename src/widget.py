@@ -1,4 +1,6 @@
-from masks import mask_by_account, mask_by_card
+from src.masks import mask_by_account, mask_by_card
+
+# import src.masks
 
 
 def number_encryption(account_type: str) -> str:
@@ -20,5 +22,5 @@ def number_encryption(account_type: str) -> str:
     return f"{name_account} {number}"
 
 
-# account_type = "Visa Classic 2452245136547895"
-# print(number_encryption(account_type))
+account_type = "Visa Classic 2452245136547895"
+print(number_encryption(account_type))
