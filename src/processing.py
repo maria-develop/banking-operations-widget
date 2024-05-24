@@ -15,11 +15,11 @@ def filter_by_state(card_details: list[dict], state: str = "EXECUTED") -> list[d
     return filtered_card_details
 
 
-def sorted_by_date(data: list[dict], ascending: bool = False) -> list[dict]:
+def sorted_by_date(data: list[dict], ascending: bool = True) -> list[dict]:
     """
     Сортирует список словарей по дате.
     """
-    sorted_list = sorted(data, key=lambda item: item["date"], reverse=not ascending)
+    sorted_list = sorted(data, key=lambda item: item["date"], reverse=ascending)
     return sorted_list
 
 
@@ -73,7 +73,7 @@ if __name__ == "__main__":
                 {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
                 {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
             ],
-            ascending=True,
+            False,
         )
     )
     # Выход функции (сортировка по убыванию, т. е. сначала самые последние операции)
