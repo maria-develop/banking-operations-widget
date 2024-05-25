@@ -28,4 +28,9 @@ def return_date(date: str) -> str:
     Функция, которая принимает на вход строку вида 2018-07-11T02:26:18.671407
     и возвращает строку с датой в виде 11.07.2018
     """
-    return f"{date[8:10]}.{date[5:7]}.{date[:4]}"
+    if len(date) == 26:
+        return f"{date[8:10]}.{date[5:7]}.{date[:4]}"
+    elif len(date) == 0:
+        return "Пустая строка"
+    else:
+        return "Ошибка ввода"
