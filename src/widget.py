@@ -8,19 +8,19 @@ def number_encryption(account_type: str) -> str:
     Возвращать исходную строку с замаскированным номером карты/счета
     """
     if len(account_type) == 0:
-        return "Неверный номер"
+        raise ValueError("Неверный номер")
+
+    number_account = account_type.split()[-1]
+    name_account = " ".join(account_type.split()[0:-1])
+
+    if len(number_account) == 16:
+        number = mask_by_card(number_account)
+    elif len(number_account) == 20:
+        number = mask_by_account(number_account)
     else:
-        number_account = account_type.split()[-1]
-        name_account = " ".join(account_type.split()[0:-1])
+        number = "Введите правильный номер"
 
-        if len(number_account) == 16:
-            number = mask_by_card(number_account)
-        elif len(number_account) == 20:
-            number = mask_by_account(number_account)
-        else:
-            number = "Введите правильный номер"
-
-        return f"{name_account} {number}"
+    return f"{name_account} {number}"
 
 
 def return_date(date: str) -> str:

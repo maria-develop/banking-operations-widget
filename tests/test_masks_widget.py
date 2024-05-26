@@ -12,10 +12,15 @@ def account_type():
     [("Visa Classic 2452245136547895", "Visa Classic 2452 45** **** 7895"),
      ("Счет 24522451365478951234", "Счет **1234"),
      ("Счет 24522451365478951287134", "Счет Введите правильный номер"),
-     ("", "Неверный номер"), ],
+    ],
 )
 def test_number_encryption(account_type, expected):
     assert number_encryption(account_type) == expected
+
+
+def test_number_encryption_error():
+    with pytest.raises(ValueError):
+        number_encryption("")
 
 
 @pytest.fixture
@@ -32,5 +37,3 @@ def date():
 )
 def test_return_date(date, expect):
     assert return_date(date) == expect
-
-
