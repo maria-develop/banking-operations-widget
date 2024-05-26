@@ -51,8 +51,6 @@ def card_details():
             "EXECUTED",
             [],
         ),
-        ([], "", []),
-        ([], "CANCELED", []),
     ],
 )
 def test_filter_by_state(card_details, state, expected):
@@ -74,21 +72,27 @@ def test_filter_by_state(card_details, state, expected):
                 {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
             ],
         ),
-        (
-            [
-                {"id": 41428829, "state": "123", "date": "2019-07-03T18:35:29.512364"},
-                {"id": 939719570, "state": "", "date": "2018-06-30T02:08:58.425572"},
-                {"id": 594226727, "state": "", "date": "2018-09-12T21:27:25.241689"},
-                {"id": 615064591, "state": "", "date": "2018-10-14T08:21:33.419441"},
-            ],
-            [],
-        ),
-        ([], []),
     ],
 )
-
 def test_filter_by_state_optional(card_details, expected):
     assert filter_by_state(card_details) == expected
+
+
+def test_filter_by_state_error():
+    with pytest.raises(ValueError):
+        filter_by_state("")
+
+
+def test_filter_by_state_key_error():
+    with pytest.raises(KeyError):
+        filter_by_state(
+            [
+                {"id": 41428829, "date": "2019-07-03T18:35:29.512364"},
+                {"id": 939719570, "date": "2018-06-30T02:08:58.425572"},
+                {"id": 594226727, "date": "2018-09-12T21:27:25.241689"},
+                {"id": 615064591, "date": "2018-10-14T08:21:33.419441"},
+            ]
+        )
 
 
 @pytest.fixture
@@ -112,10 +116,12 @@ def data():
                 {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
             ],
             True,
-            [{'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
-             {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'},
-             {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
-             {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'}],
+            [
+                {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+                {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
+                {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+                {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+            ],
         ),
         (
             [
@@ -125,10 +131,12 @@ def data():
                 {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
             ],
             False,
-            [{'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
-             {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
-             {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'},
-             {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'}],
+            [
+                {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
+                {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
+                {"id": 615064591, "state": "CANCELED", "date": "2018-10-14T08:21:33.419441"},
+                {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
+            ],
         ),
         ([], True, []),
         ([], False, []),
@@ -136,4 +144,3 @@ def data():
 )
 def test_sorted_by_date(data, ascending, expected):
     assert sorted_by_date(data, ascending) == expected
-

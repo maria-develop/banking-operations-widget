@@ -22,4 +22,4 @@ git@github.com:maria-develop/banking-operations-widget.git
 
 1. Использованы фикстуры.
 2. Использована параметризация.
-3. Покрытие __%
+3. Покрытие не менее 80%

@@ -4,6 +4,8 @@ def filter_by_state(card_details: list[dict], state: str = "EXECUTED") -> list[d
     (опциональный параметр со значением по умолчанию EXECUTED) и возвращает новый список,
     содержащий только те словари, у которых ключ state содержит переданное в функцию значение
     """
+    if len(card_details) == 0:
+        raise ValueError("Выгрузите данные корректно")
 
     filtered_card_details = []
 
