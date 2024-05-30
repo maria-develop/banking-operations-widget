@@ -35,6 +35,7 @@ no_implicit_optional = true
 warn_return_any = true
 exclude = 'venv'
 
+
 [tool.black]
 # Максимальная длина строки
 line-length = 119

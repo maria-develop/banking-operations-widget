@@ -80,7 +80,7 @@ def test_filter_by_state_optional(card_details, expected):
 
 def test_filter_by_state_error():
     with pytest.raises(ValueError):
-        filter_by_state("")
+        filter_by_state([])
 
 
 def test_filter_by_state_key_error():
