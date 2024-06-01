@@ -1,4 +1,5 @@
 import pytest
+
 from src.widget import number_encryption, return_date
 
 
