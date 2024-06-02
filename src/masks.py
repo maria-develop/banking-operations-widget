@@ -1,7 +1,7 @@
 def mask_by_card(card_number: str) -> str:
     """Функция принимает на вход номер карты и возвращает ее маску."""
     if card_number.isdigit() and len(card_number) == 16:
-        mask_number = card_number[:4] + " " + card_number[5:7] + "** **** " + card_number[-4:]
+        mask_number = card_number[:4] + " " + card_number[4:6] + "** **** " + card_number[-4:]
         return mask_number
     else:
         return "Введите правильный номер"

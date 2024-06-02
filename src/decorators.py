@@ -1,10 +1,10 @@
-from typing import Any
+from typing import Any, Callable
 
 
-def log(filename: Any = None) -> Any:
+def log(filename: Any = None) -> Callable:
     """Функция логирует вызов функции и ее результат в файл или в консоль"""
 
-    def decorator(func: Any) -> Any:
+    def decorator(func: Callable) -> Callable:
         def wrapper(*args: Any, **kwargs: dict) -> Any:
             try:
                 result = func(*args, **kwargs)

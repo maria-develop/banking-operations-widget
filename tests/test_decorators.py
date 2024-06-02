@@ -10,7 +10,7 @@ def tmp_path_log(tmp_path):
 
 def test_log_console(capsys):
     @log()
-    def my_function(x, y):
+    def my_function(x: int, y: int) -> int:
         return x + y
 
     my_function(1, 2)
@@ -22,7 +22,7 @@ def test_log_file(tmp_path_log):
     log_file = tmp_path_log / "test_log.txt"
 
     @log(filename=log_file)
-    def my_function(x, y):
+    def my_function(x: int, y: int) -> int:
         return x + y
 
     my_function(3, 4)
@@ -34,7 +34,7 @@ def test_log_file(tmp_path_log):
 
 def test_log_error(capsys):
     @log()
-    def my_function(x, y):
+    def my_function(x: int, y: int) -> int:
         raise ValueError("Invalid input")
 
     my_function(1, 2)
