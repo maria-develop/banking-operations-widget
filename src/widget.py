@@ -1,5 +1,6 @@
 from src.masks import mask_by_account, mask_by_card
 
+import re
 
 def number_encryption(account_type: str) -> str:
     """
@@ -28,9 +29,14 @@ def return_date(date: str) -> str:
     Функция, которая принимает на вход строку вида 2018-07-11T02:26:18.671407
     и возвращает строку с датой в виде 11.07.2018
     """
-    if len(date) == 26:
+    pattern = r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{6}$"
+    if len(date) == 26 and re.match(pattern, date):
         return f"{date[8:10]}.{date[5:7]}.{date[:4]}"
     elif len(date) == 0:
         return "Пустая строка"
     else:
         return "Ошибка ввода"
+
+# if __name__ == '__main__':
+#     account_type = "Visa 2452245136547895"
+#     print(number_encryption(account_type))
