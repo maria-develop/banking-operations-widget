@@ -2,6 +2,7 @@ from src.masks import mask_by_account, mask_by_card
 
 import re
 
+
 def number_encryption(account_type: str) -> str:
     """
     Функция, которая будет уметь работать как с картами, так и со счетами.
