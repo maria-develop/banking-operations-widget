@@ -1,92 +1,63 @@
 import json
-from unittest.mock import patch
+
+from unittest.mock import mock_open, patch
 
 from src.utils import get_list_operations
 
 import unittest
 
 
-class TestGetListOperations(unittest.TestCase):
-
-    @patch("builtins.open")
-    def test_file_not_found(self, mock_open):
-        """Проверяет, что функция возвращает пустой список операций в случае, если файл не найден"""
-        mock_open.side_effect = FileNotFoundError
-        result = get_list_operations("nonexistent_file.json")
-        self.assertEqual(result, [])
-
-    @patch("builtins.open")
-    def test_unexpected_error(self, mock_open):
-        """Проверяет, что функция возвращает пустой список операций в случае возникновения неожиданной ошибки"""
-        mock_open.side_effect = Exception("Some unexpected error")
-        result = get_list_operations("some_file.json")
-        self.assertEqual(result, [])
+@patch("builtins.open", new_callable=mock_open,
+       read_data=json.dumps([{"id": 1, "amount": 100}, {"id": 2, "amount": 200}]))
+def test_get_list_operations_valid_list(mock_file):
+    """Тестирует функцию с корректным JSON файлом, содержащим список"""
+    result = get_list_operations("dummy_path")
+    assert isinstance(result, list)
+    assert len(result) == 2
+    assert result[0]["id"] == 1
+    assert result[1]["amount"] == 200
 
 
+@patch("builtins.open", new_callable=mock_open, read_data=json.dumps({"id": 1, "amount": 100}))
+def test_get_list_operations_valid_dict(mock_file):
+    """Тестирует функцию с корректным JSON файлом, содержащим словарь"""
+    result = get_list_operations("dummy_path")
+    assert isinstance(result, dict)
+    assert result["id"] == 1
+    assert result["amount"] == 100
 
 
+@patch("builtins.open", new_callable=mock_open, read_data="")
+def test_get_list_operations_empty_file(mock_file):
+    """Тестирует функцию с пустым файлом"""
+    result = get_list_operations("dummy_path")
+    assert isinstance(result, list)
+    assert len(result) == 0
 
 
-# Тест на успешное чтение транзакций из файла
-@patch('builtins.open')
-@patch('os.path.exists')
-def test_read_transactions(mock_exists, mock_open):
-    # Mock os.path.exists to return True
-    mock_exists.return_value = True
+@patch("builtins.open", new_callable=mock_open, read_data="{invalid json}")
+def test_get_list_operations_invalid_json(mock_file):
+    """Тестирует функцию с файлом, содержащим некорректный JSON"""
+    result = get_list_operations("dummy_path")
+    assert isinstance(result, list)
+    assert len(result) == 0
 
-    # Mock open function to return a JSON string
-    mock_open.return_value.__enter__.return_value.read.return_value = '[{"id": 207126257, "state": "EXECUTED"}]'
 
-    path = '../data/operations.json'
-    transactions = get_list_operations(path)
+@patch("builtins.open", side_effect=FileNotFoundError)
+def test_get_list_operations_file_not_found(mock_file):
+    """Тестирует функцию с отсутствующим файлом"""
+    result = get_list_operations("dummy_path")
+    assert isinstance(result, list)
+    assert len(result) == 0
 
-    assert transactions == [{"id": 207126257, "state": "EXECUTED"}]
-    mock_exists.assert_called_once_with(path)
-    mock_open.assert_called_once_with(path, 'r', encoding='utf-8')
 
-# Тест на случай, когда файл содержит не список
-@patch('builtins.open')
-@patch('os.path.exists')
-def test_read_transactions_not_a_list(mock_exists, mock_open):
-    mock_exists.return_value = True
-    mock_open.return_value.__enter__.return_value.read.return_value = '{}'
+@patch("builtins.open", side_effect=Exception("Unexpected error"))
+def test_get_list_operations_unexpected_error(mock_file):
+    """Тестирует функцию с неожиданной ошибкой при открытии файла"""
+    result = get_list_operations("dummy_path")
+    assert isinstance(result, list)
+    assert len(result) == 0
 
-    file_path = 'data/operations.json'
-    transactions = read_data_from_json(file_path)
 
-    assert transactions == {}
-    mock_exists.assert_called_once_with(file_path)
-    mock_open.assert_called_once_with(file_path, 'r', encoding='utf-8')
-
-# Тест на случай, когда файл пустой
-@patch('builtins.open')
-@patch('os.path.exists')
-def test_read_transactions_empty_file(mock_exists, mock_open):
-    mock_exists.return_value = True
-    mock_open.return_value.__enter__.return_value.read.return_value = ''
-
-    file_path = 'data/operations.json'
-    transactions = read_data_from_json(file_path)
-
-    assert transactions == []
-    mock_exists.assert_called_once_with(file_path)
-    mock_open.assert_called_once_with(file_path, 'r', encoding='utf-8')
-
-# Тест на случай, когда файл не найден
-@patch('os.path.exists')
-def test_read_transactions_file_not_found(mock_exists):
-    mock_exists.return_value = False
-
-    file_path = 'data/operations.json'
-    transactions = read_data_from_json(file_path)
-
-    assert transactions == []
-    mock_exists.assert_called_once_with(file_path)
-
-# Запуск тестов
-if __name__ == "__main__":
-    test_read_transactions()
-    test_read_transactions_not_a_list()
-    test_read_transactions_empty_file()
-    test_read_transactions_file_not_found()
-    print("Все тесты пройдены успешно!")
+if __name__ == '__main__':
+    unittest.main()
