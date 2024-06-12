@@ -15,7 +15,7 @@ BASE_URL = "https://api.apilayer.com/exchangerates_data/convert"
 
 
 def get_api(url: str, params: dict[str, str | float], headers: Optional[Dict[str, Any]]) -> Response:
-    """## Функция для отправки запроса к API"""
+    """Обращение к внешнему API для получения текущего курса валют и конвертации суммы операции в рубли"""
     response = requests.get(url, params=params, headers=headers)
 
     try:
@@ -40,7 +40,7 @@ def get_api(url: str, params: dict[str, str | float], headers: Optional[Dict[str
 
 
 def get_exchange_rate(amount: float, from_currency: str, to_currency: str = "RUB") -> float:
-    """Функция конвертирует валюту"""
+    """Функция принимает на вход транзакцию и возвращает сумму транзакции в рублях"""
 
     url = f"https://api.apilayer.com/exchangerates_data/convert?to={to_currency}&from={from_currency}&amount={amount}"
 
@@ -94,4 +94,3 @@ if __name__ == '__main__':
                 "code": "USD"
             }
         }}))
-

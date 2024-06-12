@@ -45,4 +45,3 @@ if __name__ == '__main__':
     #     print("Файл не найден")
     #
     # print(get_list_operations(abs_path))
-
