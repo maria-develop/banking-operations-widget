@@ -53,9 +53,13 @@ def card_number():
 
 
 @pytest.mark.parametrize(
-    "card_number, expected", [("2452245136547895", "2452 24** **** 7895"),
-                              ("245224513654789525", "Введите правильный номер"),
-                              ("", "Введите правильный номер")])
+    "card_number, expected",
+    [
+        ("2452245136547895", "2452 24** **** 7895"),
+        ("245224513654789525", "Введите правильный номер"),
+        ("", "Введите правильный номер"),
+    ],
+)
 def test_mask_by_card_valid(card_number, expected):
     assert mask_by_card(card_number) == expected
 
@@ -72,9 +76,13 @@ def personal_account():
 
 
 @pytest.mark.parametrize(
-    "personal_account, expected", [("2452245136547895", "Введите правильный номер"),
-                              ("245224513654789525", "Введите правильный номер"),
-                              ("24522451365478952569", "**2569")])
+    "personal_account, expected",
+    [
+        ("2452245136547895", "Введите правильный номер"),
+        ("245224513654789525", "Введите правильный номер"),
+        ("24522451365478952569", "**2569"),
+    ],
+)
 def test_mask_by_account(personal_account, expected):
     assert mask_by_account(personal_account) == expected
 

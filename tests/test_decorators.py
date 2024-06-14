@@ -4,7 +4,7 @@ from src.decorators import log
 
 
 @pytest.fixture
-def tmp_path_log(tmp_path):
+def tmp_path_log(tmp_path) :
     return tmp_path
 
 
