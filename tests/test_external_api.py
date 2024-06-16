@@ -50,5 +50,19 @@ def test_convert_transaction_amount_rub():
     assert result == 3000.0
 
 
+def test_convert_transaction_amount_key_error():
+    # Тестирование обработки отсутствующего ключа
+    transaction = {
+        "operationAmount": {
+            "amount": "1000.00"
+            # currency key is missing
+        }
+    }
+    try:
+        convert_transaction_amount(transaction)
+    except KeyError as e:
+        assert str(e) == '"Key \'currency\' not found in JSON data."'
+
+
 if __name__ == '__main__':
     unittest.main()
