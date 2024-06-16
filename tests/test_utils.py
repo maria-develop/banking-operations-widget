@@ -1,10 +1,8 @@
 import json
-
+import unittest
 from unittest.mock import mock_open, patch
 
 from src.utils import get_list_operations
-
-import unittest
 
 
 @patch("builtins.open", new_callable=mock_open,

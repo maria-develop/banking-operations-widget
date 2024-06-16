@@ -1,7 +1,8 @@
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
+
 # import requests
-from src.external_api import get_api, get_exchange_rate, convert_transaction_amount
+from src.external_api import convert_transaction_amount, get_api, get_exchange_rate
 
 
 # Тесты для get_api
@@ -47,6 +48,20 @@ def test_convert_transaction_amount_rub():
     }
     result = convert_transaction_amount(transaction)
     assert result == 3000.0
+
+
+def test_convert_transaction_amount_key_error():
+    # Тестирование обработки отсутствующего ключа
+    transaction = {
+        "operationAmount": {
+            "amount": "1000.00"
+            # currency key is missing
+        }
+    }
+    try:
+        convert_transaction_amount(transaction)
+    except KeyError as e:
+        assert str(e) == '"Key \'currency\' not found in JSON data."'
 
 
 if __name__ == '__main__':

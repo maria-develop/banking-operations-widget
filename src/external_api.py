@@ -1,8 +1,8 @@
 import os
+from typing import Any, Dict, Optional
+
 import requests
 from dotenv import load_dotenv
-from typing import Any, Optional, Dict
-
 from requests import Response
 
 # from src.utils import get_list_operations
