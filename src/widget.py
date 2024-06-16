@@ -1,6 +1,6 @@
-from src.masks import mask_by_account, mask_by_card
-
 import re
+
+from src.masks import mask_by_account, mask_by_card
 
 
 def number_encryption(account_type: str) -> str:

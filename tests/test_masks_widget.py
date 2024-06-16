@@ -1,8 +1,7 @@
 import pytest
 
+from src.masks import mask_by_account, mask_by_card
 from src.widget import number_encryption, return_date
-
-from src.masks import mask_by_card, mask_by_account
 
 
 @pytest.fixture

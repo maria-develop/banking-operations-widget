@@ -1,17 +1,18 @@
 import json
+import logging
 import os
 from typing import Union
 
-import logging
+from config import LOGS_DIR
 
 logger = logging.getLogger("utils")
 logger.setLevel(logging.INFO)
 
 # Определяем путь к лог-файлу в корне проекта
-log_directory = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
-if not os.path.exists(log_directory):
-    os.makedirs(log_directory)
-log_file = os.path.join(log_directory, "utils.log")
+# log_directory = os.path.join(os.path.dirname(os.path.dirname(__file__)), "logs")
+# if not os.path.exists(LOGS_DIR):
+#     os.makedirs(LOGS_DIR)
+log_file = os.path.join(LOGS_DIR, "utils.log")
 print(log_file)
 
 
