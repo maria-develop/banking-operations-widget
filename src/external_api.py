@@ -5,7 +5,6 @@ import requests
 from dotenv import load_dotenv
 from requests import Response
 
-
 # Загрузка переменных окружения из файла .env
 load_dotenv()
 
