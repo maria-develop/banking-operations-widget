@@ -1,7 +1,6 @@
 import unittest
 from unittest.mock import Mock, patch
 
-# import requests
 from src.external_api import convert_transaction_amount, get_api, get_exchange_rate
 
 

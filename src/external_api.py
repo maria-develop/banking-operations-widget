@@ -5,8 +5,6 @@ import requests
 from dotenv import load_dotenv
 from requests import Response
 
-# from src.utils import get_list_operations
-
 # Загрузка переменных окружения из файла .env
 load_dotenv()
 
@@ -33,9 +31,7 @@ def get_api(url: str, params: dict[str, str | float], headers: Optional[Dict[str
         print("Too many redirects. Please check the URL.")
     except requests.exceptions.RequestException:
         print("An error occurred. Please try again later.")
-    # else:
-    #     if not response.content:
-    #         raise ValueError("API request returned an empty response")
+
     return response
 
 
@@ -50,11 +46,6 @@ def get_exchange_rate(amount: float, from_currency: str, to_currency: str = "RUB
 
     response = requests.request("GET", url, headers=headers)
 
-    # status_code = response.status_code
-    # if status_code != 200:
-    #     return None
-    # else:
-    # result = response.text
     data = response.json()
     return float(data.get("result"))
 
