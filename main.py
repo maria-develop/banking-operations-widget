@@ -1,13 +1,12 @@
-from src.utils import get_list_operations
-from src.import_csv_xlsx import read_transactions, read_transactions_xlsx
-from src.processing import filter_by_state, sorted_by_date
-from src.transaction_filter import filter_transactions_by_description
-from src.external_api import convert_transaction_amount
-from src.widget import number_encryption, return_date
-
 import os
 import re
 
+from src.external_api import convert_transaction_amount
+from src.import_csv_xlsx import read_transactions, read_transactions_xlsx
+from src.processing import filter_by_state, sorted_by_date
+from src.transaction_filter import filter_transactions_by_description
+from src.utils import get_list_operations
+from src.widget import number_encryption, return_date
 
 DATA_DIR = 'data'
 JSON_FILE = os.path.join(DATA_DIR, 'operations.json')
