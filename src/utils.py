@@ -14,7 +14,7 @@ print(log_file)
 
 
 file_handler = logging.FileHandler(log_file)
-file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(messege)s")
+file_formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s: %(message)s")
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
@@ -31,6 +31,7 @@ def get_list_operations(path: str) -> Union[list, dict]:
                 operations_data = json.load(operations_file)
                 if isinstance(operations_data, (list, dict)):
                     logger.info(f"Файл {path} успешно прочитан и содержит допустимые данные.")
+                    # print(f"Загруженные данные: {operations_data}")  # Добавлено для отладки
                     return operations_data
                 else:
                     logger.warning(f"Файл {path} не содержит список или словарь.")

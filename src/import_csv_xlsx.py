@@ -27,7 +27,7 @@ def read_transactions(file_path: str) -> list[dict]:
     """Читает файл CSV и возвращает список словарей с транзакциями."""
     transactions = []
     try:
-        logger.info(f"Открываем файл {file_path}")
+        # logger.info(f"Открываем файл {file_path}")
         with open(file_path, "r", encoding="utf-8") as file:
             reader = csv.reader(file, delimiter=";")
             header = next(reader)
@@ -63,10 +63,10 @@ def read_transactions_xlsx(file_path: str) -> list[dict]:
     try:
         # Попробуем открыть файл напрямую с помощью openpyxl
         # wb = load_workbook(filename=file_path)
-        print("Файл успешно открыт с помощью openpyxl")
+        # print("Файл успешно открыт с помощью openpyxl")
         # Если файл открывается, попробуем загрузить его в pandas DataFrame
         df = pd.read_excel(file_path, engine='openpyxl')
-        print("Файл успешно открыт и прочитан с помощью pandas")
+        # print("Файл успешно открыт и прочитан с помощью pandas")
         transactions_x = df.apply(
             lambda row: {
                 "id": row["id"],
@@ -105,7 +105,7 @@ def read_transactions_xlsx(file_path: str) -> list[dict]:
 #     return transactions
 
 
-# def read_transactions(file_path: str) -> list[dict]:
+# def read_transactions1(file_path: str) -> list[dict]:
 #     """Читает файл CSV и возвращает список словарей с транзакциями. Форма без operationAmount"""
 #     transactions = []
 #     try:
@@ -119,11 +119,13 @@ def read_transactions_xlsx(file_path: str) -> list[dict]:
 #     except Exception as e:
 #         logger.error(f"Неожиданная ошибка при обработке файла {file_path}: {e}")
 #         return [{}]
-    # return transactions
+#     return transactions
 
 
 # if __name__ == '__main__':
-    # result = read_transactions("C:/Users/User/Desktop/python_rpoject_Maria/DZ_9.2_/data/transactions.csv")
-    # res_x = read_transactions_xlsx("C:/Users/User/Desktop/python_rpoject_Maria/DZ_9.2_/data/transactions_excel.xlsx")
+    # result = read_transactions(r"../data/transactions.csv")
     # print(result)
+    # res_x = read_transactions_xlsx("C:/Users/User/Desktop/python_rpoject_Maria/DZ_9.2_/data/transactions_excel.xlsx")
     # print(res_x)
+    # res = read_transactions1("C:/Users/User/Desktop/python_rpoject_Maria/DZ_9.2_/data/transactions.csv")
+    # print(res)
