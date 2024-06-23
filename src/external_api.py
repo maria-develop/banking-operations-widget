@@ -47,6 +47,9 @@ def get_exchange_rate(amount: float, from_currency: str, to_currency: str = "RUB
     response = requests.request("GET", url, headers=headers)
 
     data = response.json()
+    if data.get("result") is None:
+        print("Ошибка выгрузки api")
+        return 0.0
     return float(data.get("result"))
 
 
@@ -62,7 +65,7 @@ def convert_transaction_amount(transaction: dict) -> float | Any:
         raise KeyError(f"Key {e} not found in JSON data.")
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # print(get_exchange_rate(52000, "USD", "RUB"))
     # print(convert_transaction_amount({
     #     "id": 441945886,
@@ -74,14 +77,14 @@ if __name__ == '__main__':
     #         "name": "руб.",
     #         "code": "RUB"
     #       }}}))
-    print(convert_transaction_amount({
-        "id": 41428829,
-        "state": "EXECUTED",
-        "date": "2019-07-03T18:35:29.512364",
-        "operationAmount": {
-            "amount": "822.37",
-            "currency": {
-                "name": "USD",
-                "code": "USD"
-            }
-        }}))
+    # print(convert_transaction_amount({
+    #     "id": 41428829,
+    #     "state": "EXECUTED",
+    #     "date": "2019-07-03T18:35:29.512364",
+    #     "operationAmount": {
+    #         "amount": "822.37",
+    #         "currency": {
+    #             "name": "USD",
+    #             "code": "USD"
+    #         }
+    #     }}))

@@ -10,7 +10,8 @@ def filter_by_state(card_details: list[dict], state: str = "EXECUTED") -> list[d
     filtered_card_details = []
 
     for detail in card_details:
-        if detail["state"] == state:
+        # print(f"Проверка ключей транзакции: {detail.keys()}")  # Добавлено для отладки
+        if 'state' in detail and detail['state'] == state:
             filtered_card_details.append(detail)
         else:
             pass
